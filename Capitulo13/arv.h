@@ -74,8 +74,24 @@ int altura(Arv A){
 }
 
 //13.5
-int tem(){
-    return 0;
+bool tem(Arv A, int x){
+    if(A == NULL)
+        return false;
+    else if(A->item == x)
+        return true;
+    else
+        return tem(A->esq, x) || tem (A->dir, x);
+}
+
+//13.6
+bool eb(Arv A){
+    //se vazia
+    if(A== NULL)
+        return true;
+    //se o nó tem apenas um filho
+    if((A->esq == NULL && A->dir != NULL) || (A->esq != NULL && A->dir == NULL))
+        return false;
+    return eb(A->esq) && eb(A->dir);
 }
 
 //estética haha
