@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <algorithm>
+#include <iostream>
 
 using namespace std;
 
@@ -86,7 +87,7 @@ bool tem(Arv A, int x){
 //13.6
 bool eb(Arv A){
     //se vazia
-    if(A== NULL)
+    if(A == NULL)
         return true;
     //se o nó tem apenas um filho
     if((A->esq == NULL && A->dir != NULL) || (A->esq != NULL && A->dir == NULL))
@@ -94,7 +95,59 @@ bool eb(Arv A){
     return eb(A->esq) && eb(A->dir);
 }
 
+// raiz -esquerda -direita
+void percorre(Arv A){
+	if (A==NULL) return;
+	cout<<A->item<<" ";
+	percorre(A->esq);
+	percorre(A->dir);	
+}
+
+bool igual(Arv A, Arv B){
+    if(A == NULL && B == NULL)
+        return true;
+    else if(A == NULL || B == NULL)
+        return false;
+    else if(A->item != B->item)
+        return false;
+    else{
+        return igual(A->esq, B->esq) && igual(A->dir, B->dir);
+    }
+}
+
+int valor(Arv A) {
+    // Se o nó for nulo, retorna 0 (caso base)
+    if (A == NULL)
+        return 0;
+    
+    // Se for uma folha (operando), retorna o valor do item
+    if (A->esq == NULL && A->dir == NULL) {
+        return A->item;  // Já é um inteiro
+    }
+    
+    // Avalia recursivamente as subárvores
+    int valorEsq = valor(A->esq);
+    int valorDir = valor(A->dir);
+    
+    // Aplica a operação correspondente
+    switch (A->item) {
+        case '+': return valorEsq + valorDir;
+        case '-': return valorEsq - valorDir;
+        case '*': return valorEsq * valorDir;
+        case '/': return valorEsq / valorDir;
+        default: return 0;  // Caso de erro
+    }
+}
+
+void exibe_dec(Arv A){
+    if(A== NULL)
+        return;
+    exibe_dec(A->dir);
+    printf("%d ", A->item);
+    exibe_dec(A->esq);    
+}
+
 //estética haha
 void l(){
-    printf("\n-----------------------------------\n");
+    printf("\n------------------------------------------\n");
 }
