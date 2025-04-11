@@ -95,14 +95,7 @@ bool eb(Arv A){
     return eb(A->esq) && eb(A->dir);
 }
 
-// raiz -esquerda -direita
-void percorre(Arv A){
-	if (A==NULL) return;
-	cout<<A->item<<" ";
-	percorre(A->esq);
-	percorre(A->dir);	
-}
-
+//13.7
 bool igual(Arv A, Arv B){
     if(A == NULL && B == NULL)
         return true;
@@ -115,6 +108,7 @@ bool igual(Arv A, Arv B){
     }
 }
 
+//13.8
 int valor(Arv A) {
     // Se o nó for nulo, retorna 0 (caso base)
     if (A == NULL)
@@ -139,6 +133,7 @@ int valor(Arv A) {
     }
 }
 
+//13.9
 void exibe_dec(Arv A){
     if(A== NULL)
         return;
@@ -147,7 +142,15 @@ void exibe_dec(Arv A){
     exibe_dec(A->esq);    
 }
 
+// raiz -esquerda -direita
+void percorre(Arv A){
+	if (A==NULL) return;
+	cout<<A->item<<" ";
+	percorre(A->esq);
+	percorre(A->dir);	
+}
+
 //estética haha
 void l(){
-    printf("\n------------------------------------------\n");
+    printf("\n--------------------------------------------\n");
 }

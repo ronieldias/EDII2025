@@ -14,71 +14,20 @@ int main(){
     Arv R3 = arv(arv(arv(NULL,4,NULL),2,arv(NULL,5,NULL)),1,arv(arv(NULL,6,NULL),3,arv(NULL,7,NULL)));
     
     //Um nó tem apenas filho à esquerda
-    Arv R4 = arv(arv(arv(NULL,
-                        4,
-                        NULL),
-                    2,
-                    NULL),  // Nó 2 tem apenas filho à esquerda
-                1,
-                arv(NULL,
-                    3,
-                    arv(NULL,
-                        6,
-                        NULL))
-    );
+    // Nó 2 tem apenas filho à esquerda
+    Arv R4 = arv(arv(arv(NULL,4,NULL),2,NULL),1,arv(NULL,3,arv(NULL,6,NULL)));
     
     //Um nó tem apenas filho à direita
-    Arv R5 = arv(arv(NULL,
-                        2,
-                        arv(NULL,
-                            5,
-                            NULL)),
-                    1,
-                    arv(NULL,
-                        3,
-                        NULL)  // Nó 3 tem apenas filho à direita
-    );
+    // Nó 3 tem apenas filho à direita
+    Arv R5 = arv(arv(NULL,2,arv(NULL,5,NULL)),1,arv(NULL,3,NULL));
 
-    Arv R7 = arv(
-        arv(
-            arv(
-                arv(NULL, 5, NULL),
-                '+',
-                arv(NULL, 3, NULL)
-            ),
-            '/',
-            arv(NULL, 4, NULL)
-        ),
-        '*',
-        arv(
-            arv(NULL, 6, NULL),
-            '-',
-            arv(NULL, 1, NULL)
-        )
-    );
+    Arv R6 = arv(arv(arv(arv(NULL, 5, NULL),'+',arv(NULL, 3, NULL)),'/',arv(NULL, 4, NULL)),'*',arv(arv(NULL, 6, NULL),'-',arv(NULL, 1, NULL)));
 
     // arvore de busca binaria
-    Arv R8 = arv(
-        arv(
-            arv(NULL, 1, NULL),
-            3,
-            arv(
-                arv(NULL, 4, NULL),
-                6,
-                arv(NULL, 7, NULL)
-            )
-        ),
-        8,
-        arv(
-            NULL,
-            10,
-            arv(
-                arv(NULL, 13, NULL),
-                14,
-                NULL
-            )
-        )
-    );
+    Arv R7 = arv(arv(arv(NULL, 1, NULL),3,arv(arv(NULL, 4, NULL),6,arv(NULL, 7, NULL))),8,arv(NULL,10,arv(arv(NULL, 13, NULL),14,NULL)));
+
+    //arvore binaria de busca balanceada
+    Arv R8 = arv(arv(arv(arv(NULL,1,NULL),3,arv(NULL,4,NULL)),5,arv(arv(NULL,6,NULL),7,arv(NULL,9,NULL))),10,arv(arv(arv(NULL,11,NULL),12,arv(NULL,13,NULL)),15,arv(arv(NULL,18,NULL),20,arv(NULL,25,NULL))));
     
     printf("Em ordem: "); emordem(R); l();
     printf("Pre ordem: "); preordem(R); l();
@@ -89,7 +38,7 @@ int main(){
     printf("Tem o item 3? %s", tem(R, 6) ? "Sim" : "Nao"); l();
     printf("Arvore EB? %s", eb(R5) ? "Sim" : "Nao"); l();
     printf("Arvores R e R iguais? %s", igual(R, R) ? "Sim" : "Nao"); l();
-    printf("O valor da expressão ((5+3)/4)*(6-1) é: %d\n", valor(R7)); l();
+    printf("O valor da expressao ((5+3)/4)*(6-1) eh: %d", valor(R6)); l();
     printf("Decrescente: "); exibe_dec(R8); l();
 
     return 0;
