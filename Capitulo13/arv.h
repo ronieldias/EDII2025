@@ -12,7 +12,7 @@ typedef struct arv{
 }*Arv;
 
 Arv arv(Arv e, int x, Arv d){
-    Arv n =(Arv)malloc(sizeof(struct arv));
+    Arv n =(struct arv*)malloc(sizeof(struct arv));
     n->esq = e;
     n->item = x;
     n->dir = d;
@@ -149,6 +149,29 @@ void percorre(Arv A){
 	percorre(A->esq);
 	percorre(A->dir);	
 }
+
+int remmax(Arv *A){
+    if(*A == NULL) abort();
+    while ((*A)->dir != NULL) A = &(*A)->dir;
+    Arv n = *A;
+    int x = n -> item;
+    *A = n ->esq;
+    free(n);
+    return x;
+}
+
+void rem(int x, Arv *A){
+    if(*A == NULL) return;
+    if(x == (*A)->item){
+        Arv n = *A;
+        if(n->esq == NULL) *A = n->dir;
+        else if (n->dir == NULL) *A = n->esq;
+        else n->item = remmax(&n->esq);
+        if(n != *A) free(n);
+    }
+    else if(x <= (*A)->item) rem(x, &(*A)->esq);
+    else rem(x, &(*A)->dir);
+};
 
 //estética haha
 void l(){

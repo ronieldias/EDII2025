@@ -41,5 +41,13 @@ int main(){
     printf("O valor da expressao ((5+3)/4)*(6-1) eh: %d", valor(R6)); l();
     printf("Decrescente: "); exibe_dec(R8); l();
 
+    // Aula 25042025
+    printf("Remocao do item maximo da arvore R7: %d", remmax(&R7)); l();
+    printf("Árvore resultante: "); preordem(R7); l();
+    printf("Remocao do item 7 da arvore R8"); l();
+    rem(7, &R8);
+    printf("Arvore resultante: "); preordem(R8); l();
+
+    //ENVIAR PARA O RONIEL OK
     return 0;
 }
