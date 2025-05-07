@@ -7,8 +7,6 @@
 #include <algorithm>
 #include <iostream>
 
-
-
 using namespace std;
 
 typedef struct arv{
@@ -26,14 +24,13 @@ Arv arv(Arv e, int x, Arv d){
     return n;
 }
 
-
 int contarNos(Arv raiz) {
     if (raiz == NULL) return 0;
     return 1 + contarNos(raiz->esq) + contarNos(raiz->dir);
 }
 
 
-void heap_max(Arv raiz) {
+void mostrar_heap(Arv raiz) {
     if (raiz == NULL) return;
 
     int total = contarNos(raiz);
@@ -52,6 +49,87 @@ void heap_max(Arv raiz) {
             fila[fim++] = atual->esq;
         if (atual->dir != NULL)
             fila[fim++] = atual->dir;
+    }
+    free(fila);
+}
+
+void heap_Max(Arv raiz) {
+    if (raiz == NULL) return;
+
+    Arv maior = raiz;
+
+    if (raiz->esq && raiz->esq->item > maior->item)
+        maior = raiz->esq;
+
+    if (raiz->dir && raiz->dir->item > maior->item)
+        maior = raiz->dir;
+
+    if (maior != raiz) {
+        // Trocar os valores
+        int temp = raiz->item;
+        raiz->item = maior->item;
+        maior->item = temp;
+
+        // Continuar ajustando recursivamente
+        heap_Max(maior);
+    }
+}
+
+void construirHeapMax(Arv raiz) {
+    if (raiz == NULL) return;
+
+    // Primeiro ajusta os filhos
+    construirHeapMax(raiz->esq);
+    construirHeapMax(raiz->dir);
+
+    // Depois ajusta o pai
+    heap_Max(raiz);
+    
+}
+
+void heapifyCompletoMax(Arv raiz, int vezes) {
+    for (int i = 0; i < vezes; i++) {
+        construirHeapMax(raiz);
+    }
+}
+
+void heap_Min(Arv raiz) {
+    if (raiz == NULL) return;
+
+    Arv menor = raiz;
+
+    if (raiz->esq && raiz->esq->item < menor->item)
+        menor = raiz->esq;
+
+    if (raiz->dir && raiz->dir->item < menor->item)
+        menor = raiz->dir;
+
+    if (menor != raiz) {
+        // Trocar os valores
+        int temp = raiz->item;
+        raiz->item = menor->item;
+        menor->item = temp;
+
+        // Continuar ajustando recursivamente
+        heap_Min(menor);
+    }
+}
+
+void construirHeapMin(Arv raiz) {
+    if (raiz == NULL) return;
+
+    // Primeiro ajusta os filhos
+    construirHeapMin(raiz->esq);
+    construirHeapMin(raiz->dir);
+
+    // Depois ajusta o pai
+    heap_Min(raiz);
+    
+}
+
+void heapifyCompletoMin(Arv raiz, int vezes) {
+    for (int i = 0; i < vezes; i++) {
+        construirHeapMin(raiz);
     }
 }
 
