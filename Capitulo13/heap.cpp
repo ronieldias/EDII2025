@@ -70,4 +70,5 @@ int main(){
     heapifyCompletoMin(R3, total3);
     printf("\nHeap-Min R3: "); mostrar_heap(R3); l();
 
+
 }
