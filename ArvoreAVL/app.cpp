@@ -1,27 +1,24 @@
 #include "arv.h"
 
 int main() {
+    // Criar árvore manual desbalanceada: 30 → 20 → 10
+    Arv* raiz = new Arv{30, NULL, NULL, 0};
+    raiz->esq = new Arv{20, NULL, NULL, 0};
+    raiz->esq->esq = new Arv{10, NULL, NULL, 0};
 
-    Arv* raiz = NULL;
+    atualizarAlturasArvore(raiz);
 
-    // Caso 1: Rotacao simples à direita (insercao): 30, 20, 10
-    raiz = inserir(raiz, 30);
-    raiz = inserir(raiz, 20);
-    raiz = inserir(raiz, 10);
+    // Mostrar antes e depois do balanceamento
+    mostrarEstadoCompleto("Arvore manual", raiz, true);
 
-    cout << "In-ordem apos insercao (rotacao direita): ";
-    imprimirInOrdem(raiz);
-    cout << endl;
-    imprimirFatores(raiz);
-    cout << "Altura da arvore: " << alturaArvore(raiz) << endl;
+    // Inserir nós (com balanceamento automático)
+    raiz = inserir(raiz, 25);
+    raiz = inserir(raiz, 5);
+    mostrarEstadoCompleto("Apos insercoes (25 e 5)", raiz);
 
-    // Remoção de nó que causará desbalanceamento: remove 10
-    raiz = remover(raiz, 10);
-    cout << "\nIn-ordem apos remocao: ";
-    imprimirInOrdem(raiz);
-    cout << endl;
-    imprimirFatores(raiz);
-    cout << "Altura da arvore: " << alturaArvore(raiz) << endl;
+    // Remover nó 30 (com balanceamento automático)
+    raiz = remover(raiz, 30);
+    mostrarEstadoCompleto("Apos remocao de 30", raiz);
 
     return 0;
 }
