@@ -10,7 +10,9 @@ struct Arv {
 
 // Funções básicas
 int altura(Arv* no) {
-    if (no == NULL) return -1;
+    if (no == NULL) {
+        return -1;
+    }
     return no->altura;
 }
 
@@ -20,13 +22,16 @@ int fatorBalanceamento(Arv* no) {
 }
 
 int atualizarAlturasArvore(Arv* raiz) {
-    if (raiz == NULL) return -1;
+    if (raiz == NULL) 
+        return -1;
 
     int altEsq = atualizarAlturasArvore(raiz->esq);
     int altDir = atualizarAlturasArvore(raiz->dir);
 
-    if (altEsq > altDir) raiz->altura = altEsq + 1;
-    else raiz->altura = altDir + 1;
+    if (altEsq > altDir)
+        raiz->altura = altEsq + 1;
+    else
+        raiz->altura = altDir + 1;      
 
     return raiz->altura;
 }
@@ -70,22 +75,23 @@ Arv* balancear(Arv* no) {
     return no;
 }
 
-// Inserção
-Arv* inserir(Arv* raiz, int valor) {
+// Inserção sem balanceamento
+Arv* inserirSemBalancear(Arv* raiz, int valor) {
     if (raiz == NULL) {
         Arv* novo = new Arv{valor, NULL, NULL, 0};
         return novo;
     }
 
     if (valor < raiz->valor)
-        raiz->esq = inserir(raiz->esq, valor);
+        raiz->esq = inserirSemBalancear(raiz->esq, valor);
     else if (valor > raiz->valor)
-        raiz->dir = inserir(raiz->dir, valor);
+        raiz->dir = inserirSemBalancear(raiz->dir, valor);
 
-    return balancear(raiz);
+    atualizarAlturasArvore(raiz);
+    return raiz;
 }
 
-// Remoção
+// Remoção (mantém balanceamento automático)
 Arv* encontrarMinimo(Arv* no) {
     while (no->esq != NULL)
         no = no->esq;
@@ -130,28 +136,22 @@ void imprimirFatores(Arv* raiz) {
     }
 }
 
-// Função para exibir o estado completo
-void mostrarEstadoCompleto(string titulo, Arv* raiz, bool mostrarAntesBalancear = false) {
-    cout << "\n=== " << titulo << " ===" << endl;
+void mostrarAntesBalancear(Arv* raiz) {
+    cout << "\nAntes do balanceamento:" << endl;
+    imprimirInOrdem(raiz);
+    cout << "\nFatores antes:" << endl;
+    imprimirFatores(raiz);
+    cout << "Altura antes: " << altura(raiz) << endl;
+}
 
-    if (mostrarAntesBalancear) {
-        // Mostrar antes do balanceamento
-        cout << "Antes do balanceamento:" << endl;
-        imprimirInOrdem(raiz);
-        cout << "\nFatores antes:" << endl;
-        imprimirFatores(raiz);
-        cout << "Altura antes: " << altura(raiz) << endl;
+void mostrarDepoisBalancear(Arv* raiz) {
+    cout << "\nBalanceando..." << endl;
+    raiz = balancear(raiz);
+    atualizarAlturasArvore(raiz);
 
-        cout << "\nBalanceando..." << endl;
-        raiz = balancear(raiz);
-        atualizarAlturasArvore(raiz);
-    }
-
-    // Mostrar após balancear
-    cout << "Apos o balanceamento:" << endl;
+    cout << "\nApos o balanceamento:" << endl;
     imprimirInOrdem(raiz);
     cout << "\nFatores apos:" << endl;
     imprimirFatores(raiz);
     cout << "Altura apos: " << altura(raiz) << endl;
 }
-
